@@ -13,27 +13,18 @@ namespace apiexamen
     public class ClsExamen
     {
         SqlTransaction transaction;
+        SqlConnection connection;
+        string url = "https://localhost:5001/api/";
 
         public static JsonSerializerOptions serializeOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
 
-        string url = "https://localhost:5001/api/";
-
-        static string ServerName;
+        public string ConnectionString { get; set; }
 
         public ClsExamen(string serverName)
         {
-            ServerName = serverName;
+            ConnectionString = @$"Data Source={serverName};Database=BdiExamen;Trusted_Connection=True;";
+            connection = new SqlConnection(ConnectionString);
         }
-
-
-        public static string ConnectionString
-        {
-            //get { return @$"Data Source={ServerName};Database=BdiExamen;Trusted_Connection=True;"; }
-            get { return @"Data Source=MGSOFT\MGSOFT;Database=BdiExamen;Trusted_Connection=True;"; }
-
-        }
-
-        SqlConnection connection = new SqlConnection(ConnectionString);
 
         public List<Examen> ConsultarExamenes()
         {
@@ -170,7 +161,8 @@ namespace apiexamen
             }
             catch (Exception)
             {
-                return false;
+                //return false;
+                throw;
             }
             finally
             {

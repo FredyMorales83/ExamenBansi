@@ -44,12 +44,13 @@ namespace ExamenBansi
             this.btnNuevo = new System.Windows.Forms.Button();
             this.lblEstatus = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCargarDatos = new System.Windows.Forms.Button();
             this.btnConfigurar = new System.Windows.Forms.Button();
             this.txtServidor = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.rbProcedimiento = new System.Windows.Forms.RadioButton();
             this.rbWebApi = new System.Windows.Forms.RadioButton();
+            this.rbProcedimiento = new System.Windows.Forms.RadioButton();
             this.gbExamen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExamenes)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -203,6 +204,7 @@ namespace ExamenBansi
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnCargarDatos);
             this.groupBox1.Controls.Add(this.btnConfigurar);
             this.groupBox1.Controls.Add(this.txtServidor);
             this.groupBox1.Controls.Add(this.label4);
@@ -213,13 +215,23 @@ namespace ExamenBansi
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Conexion";
             // 
+            // btnCargarDatos
+            // 
+            this.btnCargarDatos.Location = new System.Drawing.Point(471, 31);
+            this.btnCargarDatos.Name = "btnCargarDatos";
+            this.btnCargarDatos.Size = new System.Drawing.Size(138, 23);
+            this.btnCargarDatos.TabIndex = 7;
+            this.btnCargarDatos.Text = "Cargar datos";
+            this.btnCargarDatos.UseVisualStyleBackColor = true;
+            this.btnCargarDatos.Click += new System.EventHandler(this.btnCargarDatos_Click);
+            // 
             // btnConfigurar
             // 
             this.btnConfigurar.Location = new System.Drawing.Point(390, 32);
             this.btnConfigurar.Name = "btnConfigurar";
             this.btnConfigurar.Size = new System.Drawing.Size(75, 23);
             this.btnConfigurar.TabIndex = 2;
-            this.btnConfigurar.Text = "Configurar:";
+            this.btnConfigurar.Text = "Configurar";
             this.btnConfigurar.UseVisualStyleBackColor = true;
             this.btnConfigurar.Click += new System.EventHandler(this.btnConfigurar_Click);
             // 
@@ -251,6 +263,16 @@ namespace ExamenBansi
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Metodo de persistencia";
             // 
+            // rbWebApi
+            // 
+            this.rbWebApi.AutoSize = true;
+            this.rbWebApi.Location = new System.Drawing.Point(184, 22);
+            this.rbWebApi.Name = "rbWebApi";
+            this.rbWebApi.Size = new System.Drawing.Size(70, 19);
+            this.rbWebApi.TabIndex = 1;
+            this.rbWebApi.Text = "Web API";
+            this.rbWebApi.UseVisualStyleBackColor = true;
+            // 
             // rbProcedimiento
             // 
             this.rbProcedimiento.AutoSize = true;
@@ -262,16 +284,6 @@ namespace ExamenBansi
             this.rbProcedimiento.TabStop = true;
             this.rbProcedimiento.Text = "Procedimiento almacenado";
             this.rbProcedimiento.UseVisualStyleBackColor = true;
-            // 
-            // rbWebApi
-            // 
-            this.rbWebApi.AutoSize = true;
-            this.rbWebApi.Location = new System.Drawing.Point(184, 22);
-            this.rbWebApi.Name = "rbWebApi";
-            this.rbWebApi.Size = new System.Drawing.Size(70, 19);
-            this.rbWebApi.TabIndex = 1;
-            this.rbWebApi.Text = "Web API";
-            this.rbWebApi.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -321,6 +333,7 @@ namespace ExamenBansi
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton rbWebApi;
         private System.Windows.Forms.RadioButton rbProcedimiento;
+        private System.Windows.Forms.Button btnCargarDatos;
     }
 }
 
