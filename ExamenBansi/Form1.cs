@@ -28,6 +28,7 @@ namespace ExamenBansi
             {
                 lblEstatus.ForeColor = System.Drawing.Color.Red;
                 lblEstatus.Text = "Debe ingresar la informacion del examen";
+                txtNombre.Focus();
                 return;
             }
 
@@ -42,12 +43,25 @@ namespace ExamenBansi
 
             try
             {
-                if (await clsExamen.AgregarExamenApi(examen))
+                if (rbProcedimiento.Checked)
                 {
-                    lblEstatus.ForeColor = System.Drawing.Color.Green;
-                    lblEstatus.Text = "Examen guardado exitosamente";
-                    frmMain_Load(sender, e);
+                    if (clsExamen.AgregarExamen(examen))
+                    {
+                        lblEstatus.ForeColor = System.Drawing.Color.Green;
+                        lblEstatus.Text = "Examen guardado exitosamente";
+                        frmMain_Load(sender, e);
+                    }
                 }
+
+                if (rbWebApi.Checked)
+                {
+                    if (await clsExamen.AgregarExamenApi(examen))
+                    {
+                        lblEstatus.ForeColor = System.Drawing.Color.Green;
+                        lblEstatus.Text = "Examen guardado exitosamente";
+                        frmMain_Load(sender, e);
+                    }
+                }                
             }
             catch (Exception ex)
             {
@@ -78,11 +92,20 @@ namespace ExamenBansi
             {
                 ClsExamen examen = new ClsExamen(Servidor);
 
-                var examenes = await examen.ConsultarExamenesApi();
+                if (rbProcedimiento.Checked)
+                {
+                    var examenes = examen.ConsultarExamenes();
+                    dgvExamenes.DataSource = examenes;
+                }
 
-                dgvExamenes.DataSource = examenes;
+                if (rbWebApi.Checked)
+                {
+                    var examenes = await examen.ConsultarExamenesApi();
+                    dgvExamenes.DataSource = examenes;
+                }
 
-                Limpiar();
+
+                Limpiar();                
             }
             catch (Exception ex)
             {
@@ -101,8 +124,6 @@ namespace ExamenBansi
             txtID.Text = string.Empty;
             txtNombre.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
-            lblEstatus.ForeColor = System.Drawing.Color.RoyalBlue;
-            lblEstatus.Text = "Esperando accion del usuario";
             txtNombre.Focus();
         }
 
@@ -142,11 +163,24 @@ namespace ExamenBansi
 
             try
             {
-                if (await clsExamen.ActualizarExamenApi(examen))
+                if (rbProcedimiento.Checked)
                 {
-                    lblEstatus.ForeColor = System.Drawing.Color.Green;
-                    lblEstatus.Text = "Examen actualizado exitosamente";
-                    frmMain_Load(sender, e);
+                    if (clsExamen.ActualizarExamen(examen))
+                    {
+                        lblEstatus.ForeColor = System.Drawing.Color.Green;
+                        lblEstatus.Text = "Examen actualizado exitosamente";
+                        frmMain_Load(sender, e);
+                    }
+                }
+
+                if (rbWebApi.Checked)
+                {
+                    if (await clsExamen.ActualizarExamenApi(examen))
+                    {
+                        lblEstatus.ForeColor = System.Drawing.Color.Green;
+                        lblEstatus.Text = "Examen actualizado exitosamente";
+                        frmMain_Load(sender, e);
+                    }
                 }
             }
             catch (Exception ex)
@@ -169,13 +203,27 @@ namespace ExamenBansi
             {
                 if (MessageBox.Show("Esta seguro de borrar el examen seleccionado?", "Eliminar examen", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (await clsExamen.EliminarExamenApi(ExamenSeleccionadoId.Value))
+                    if (rbProcedimiento.Checked)
                     {
-                        lblEstatus.ForeColor = System.Drawing.Color.Green;
-                        lblEstatus.Text = "Examen eliminado exitosamente";
-                        Limpiar();
-                        frmMain_Load(sender, e);
+                        if (clsExamen.EliminarExamen(ExamenSeleccionadoId.Value))
+                        {
+                            lblEstatus.ForeColor = System.Drawing.Color.Green;
+                            lblEstatus.Text = "Examen eliminado exitosamente";
+                            Limpiar();
+                            frmMain_Load(sender, e);
+                        }
                     }
+
+                    if (rbWebApi.Checked)
+                    {
+                        if (await clsExamen.EliminarExamenApi(ExamenSeleccionadoId.Value))
+                        {
+                            lblEstatus.ForeColor = System.Drawing.Color.Green;
+                            lblEstatus.Text = "Examen eliminado exitosamente";
+                            Limpiar();
+                            frmMain_Load(sender, e);
+                        }
+                    }                    
                 }
                 else
                 {

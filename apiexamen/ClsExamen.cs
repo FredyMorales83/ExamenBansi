@@ -12,6 +12,8 @@ namespace apiexamen
 {
     public class ClsExamen
     {
+        SqlTransaction transaction;
+
         public static JsonSerializerOptions serializeOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
 
         string url = "https://localhost:5001/api/";
@@ -88,7 +90,12 @@ namespace apiexamen
                         command.Parameters.Add("Descripcion", SqlDbType.VarChar).Value = examen.Descripcion;
 
                         connection.Open();
+
+                        transaction = connection.BeginTransaction();
+
+                        command.Transaction = transaction;
                         command.ExecuteNonQuery();
+                        transaction.Commit();
                     }
                 }
 
@@ -96,6 +103,7 @@ namespace apiexamen
             }
             catch (Exception)
             {
+                transaction.Rollback();
                 return false;
             }
             finally
@@ -119,7 +127,11 @@ namespace apiexamen
                         command.Parameters.Add("Descripcion", SqlDbType.VarChar).Value = examen.Descripcion;
 
                         connection.Open();
+
+                        transaction = connection.BeginTransaction();
+                        command.Transaction = transaction;
                         command.ExecuteNonQuery();
+                        transaction.Commit();
                     }
                 }
 
@@ -127,6 +139,7 @@ namespace apiexamen
             }
             catch (Exception)
             {
+                transaction.Rollback();
                 return false;
             }
             finally

@@ -47,10 +47,14 @@ namespace ExamenBansi
             this.btnConfigurar = new System.Windows.Forms.Button();
             this.txtServidor = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbProcedimiento = new System.Windows.Forms.RadioButton();
+            this.rbWebApi = new System.Windows.Forms.RadioButton();
             this.gbExamen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExamenes)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbExamen
@@ -189,12 +193,12 @@ namespace ExamenBansi
             this.lblEstatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblEstatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblEstatus.Font = new System.Drawing.Font("Arial Unicode MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblEstatus.ForeColor = System.Drawing.Color.Red;
+            this.lblEstatus.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblEstatus.Location = new System.Drawing.Point(0, 481);
             this.lblEstatus.Name = "lblEstatus";
             this.lblEstatus.Size = new System.Drawing.Size(751, 31);
             this.lblEstatus.TabIndex = 2;
-            this.lblEstatus.Text = "label4";
+            this.lblEstatus.Text = "Esperando accion del usuario";
             this.lblEstatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
@@ -202,9 +206,9 @@ namespace ExamenBansi
             this.groupBox1.Controls.Add(this.btnConfigurar);
             this.groupBox1.Controls.Add(this.txtServidor);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(18, 13);
+            this.groupBox1.Location = new System.Drawing.Point(18, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(721, 68);
+            this.groupBox1.Size = new System.Drawing.Size(721, 63);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Conexion";
@@ -236,11 +240,45 @@ namespace ExamenBansi
             this.label4.TabIndex = 0;
             this.label4.Text = "Servidor:";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rbWebApi);
+            this.groupBox3.Controls.Add(this.rbProcedimiento);
+            this.groupBox3.Location = new System.Drawing.Point(18, 73);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(465, 56);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Metodo de persistencia";
+            // 
+            // rbProcedimiento
+            // 
+            this.rbProcedimiento.AutoSize = true;
+            this.rbProcedimiento.Checked = true;
+            this.rbProcedimiento.Location = new System.Drawing.Point(7, 22);
+            this.rbProcedimiento.Name = "rbProcedimiento";
+            this.rbProcedimiento.Size = new System.Drawing.Size(171, 19);
+            this.rbProcedimiento.TabIndex = 0;
+            this.rbProcedimiento.TabStop = true;
+            this.rbProcedimiento.Text = "Procedimiento almacenado";
+            this.rbProcedimiento.UseVisualStyleBackColor = true;
+            // 
+            // rbWebApi
+            // 
+            this.rbWebApi.AutoSize = true;
+            this.rbWebApi.Location = new System.Drawing.Point(184, 22);
+            this.rbWebApi.Name = "rbWebApi";
+            this.rbWebApi.Size = new System.Drawing.Size(70, 19);
+            this.rbWebApi.TabIndex = 1;
+            this.rbWebApi.Text = "Web API";
+            this.rbWebApi.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 512);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblEstatus);
             this.Controls.Add(this.groupBox2);
@@ -254,6 +292,8 @@ namespace ExamenBansi
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -278,6 +318,9 @@ namespace ExamenBansi
         private System.Windows.Forms.TextBox txtServidor;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnConfigurar;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rbWebApi;
+        private System.Windows.Forms.RadioButton rbProcedimiento;
     }
 }
 
