@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Comun.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Comun.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WsApiexamen.Models;
 
 namespace WsApiexamen.Controllers
@@ -28,8 +26,8 @@ namespace WsApiexamen.Controllers
             return await _context.Examenes.ToListAsync();
         }
 
-        // GET: api/Examenes/5
-        [HttpGet("{id}")]
+        //// GET: api/Examenes/Consultar/5
+        [HttpGet("Consultar/{id}")]
         public async Task<ActionResult<Examen>> GetExamen(int id)
         {
             var examen = await _context.Examenes.FindAsync(id);
@@ -40,6 +38,20 @@ namespace WsApiexamen.Controllers
             }
 
             return examen;
+        }
+
+        // GET: api/Examenes/Consultar?nombre={nombre}&descripcion={descripcion}
+        [HttpGet("Consultar/")]
+        public async Task<ActionResult<IEnumerable<Examen>>> GetExamen(string nombre, string descripcion)
+        {
+            var examenes = await _context.Examenes.Where(e => e.Nombre.Equals(nombre) && e.Descripcion.Equals(descripcion)).ToListAsync();
+
+            if (examenes == null)
+            {
+                return NotFound();
+            }
+
+            return examenes;
         }
 
         // PUT: api/Examenes/5

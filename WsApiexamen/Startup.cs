@@ -39,6 +39,14 @@ namespace WsApiexamen
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WsApiexamen", Version = "v1" });
             });
+
+            services.AddCors(option =>
+                option.AddDefaultPolicy(p =>
+                                           {
+                                               p.AllowAnyMethod();
+                                               p.AllowAnyHeader();
+                                               p.AllowAnyOrigin();
+                                           }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +58,8 @@ namespace WsApiexamen
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WsApiexamen v1"));
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

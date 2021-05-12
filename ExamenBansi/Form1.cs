@@ -1,13 +1,8 @@
 ﻿using apiexamen;
 using Comun.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExamenBansi
@@ -25,6 +20,11 @@ namespace ExamenBansi
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (!ValidarServidorConfigurado())
+            {
+                return;
+            }
+
             if (!ValidarEntradas())
             {
                 MensajeDeSistema("Debe ingresar la informacion del examen", Color.Red);
@@ -87,7 +87,7 @@ namespace ExamenBansi
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-                      
+
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -118,6 +118,11 @@ namespace ExamenBansi
 
         private async void btnEditar_Click(object sender, EventArgs e)
         {
+            if (!ValidarServidorConfigurado())
+            {
+                return;
+            }
+
             if (!ExamenSeleccionadoId.HasValue)
             {
                 MensajeDeSistema("Debe seleccionar un registro de la tabla para editar", Color.Red);
@@ -170,6 +175,11 @@ namespace ExamenBansi
 
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (!ValidarServidorConfigurado())
+            {
+                return;
+            }
+
             if (!ExamenSeleccionadoId.HasValue)
             {
                 MensajeDeSistema("Debe seleccionar un registro de la tabla para eliminar", Color.Red);
@@ -177,7 +187,7 @@ namespace ExamenBansi
             }
 
             ClsExamen clsExamen = new ClsExamen(Servidor);
-                        
+
             try
             {
                 if (MessageBox.Show("Esta seguro de borrar el examen seleccionado?", "Eliminar examen", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -227,11 +237,7 @@ namespace ExamenBansi
 
         private async void btnCargarDatos_Click(object sender, EventArgs e)
         {
-            if (!EstaServidorConfigurado)
-            {
-                MensajeDeSistema("Debe configurar el servidor: Escriba el nombre y presione Configurar", Color.Red);
-                return;
-            }
+            ValidarServidorConfigurado();
 
             try
             {
@@ -261,6 +267,71 @@ namespace ExamenBansi
         {
             lblEstatus.Text = mensaje;
             lblEstatus.ForeColor = color;
+        }
+
+        private async void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (!ValidarServidorConfigurado())
+            {
+                return;
+            }
+
+            if (!ValidarEntradas())
+            {
+                MensajeDeSistema("Debe ingresar la informacion del examen", Color.Red);
+
+                return;
+            }
+
+            ClsExamen clsExamen = new ClsExamen(Servidor);
+
+            try
+            {
+                if (rbProcedimiento.Checked)
+                {
+                    var examen = clsExamen.ConsultarExamen(txtNombre.Text, txtDescripcion.Text);
+
+                    if (examen.Count > 0)
+                    {
+                        dgvExamenes.DataSource = examen.ToList();
+                    }
+                    else
+                    {
+                        MensajeDeSistema("No se encontraron registros con la informacion proporcionada", Color.Orange);
+                        dgvExamenes.DataSource = null;
+                    }
+                }
+
+                if (rbWebApi.Checked)
+                {
+                    var examenes = await clsExamen.ConsultarExamenApi(txtNombre.Text, txtDescripcion.Text);
+
+                    if (examenes.Count > 0)
+                    {
+                        dgvExamenes.DataSource = examenes;
+                    }
+                    else
+                    {
+                        MensajeDeSistema("No se encontraron registros con la informacion proporcionada", Color.Orange);
+                        dgvExamenes.DataSource = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MensajeDeSistema(ex.Message, Color.Red);
+            }
+        }
+
+        private bool ValidarServidorConfigurado()
+        {
+            if (!EstaServidorConfigurado)
+            {
+                MensajeDeSistema("Debe configurar el servidor: Escriba el nombre y presione Configurar", Color.Red);
+                return false;
+            }
+
+            return true;
         }
     }
 }

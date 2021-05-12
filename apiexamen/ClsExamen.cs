@@ -67,6 +67,54 @@ namespace apiexamen
             return examenes;
         }
 
+        public List<Examen> ConsultarExamen(string nombre, string descripcion)
+        {
+
+            List<Examen> examenes = new List<Examen>();
+
+            try
+            {
+                using (connection)
+                {
+                    using (SqlCommand command = new SqlCommand("spConsultar", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
+                        command.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = descripcion;
+
+                        connection.Open();
+
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            var examen = new Examen
+                            {
+                                IdExamen = reader.GetInt32(0),
+                                Nombre = reader.GetString(1),
+                                Descripcion = reader.GetString(2)
+                            };
+
+                            examenes.Add(examen);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Hubo algun error con la BD: {ex.Message}");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return examenes;
+        }
+
+
         public bool AgregarExamen(Examen examen)
         {
             try
@@ -179,6 +227,32 @@ namespace apiexamen
             {
                 client.BaseAddress = new Uri(url);
                 var response = await client.GetAsync("Examenes");
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    var examenes = JsonSerializer.Deserialize<List<Examen>>(responseString, serializeOptions);
+
+                    return examenes;
+                }
+                else
+                {
+                    return new List<Examen>();
+                }
+            }
+        }
+
+        public async Task<List<Examen>> ConsultarExamenApi(string nombre, string descripcion)
+        {
+
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using (HttpClient client = new HttpClient(clientHandler))
+            {
+                client.BaseAddress = new Uri(url);
+                var response = await client.GetAsync($"Examenes/Consultar?nombre={nombre}&descripcion={descripcion}");
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {

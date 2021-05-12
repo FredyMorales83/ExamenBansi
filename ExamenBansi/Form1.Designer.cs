@@ -51,6 +51,7 @@ namespace ExamenBansi
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbWebApi = new System.Windows.Forms.RadioButton();
             this.rbProcedimiento = new System.Windows.Forms.RadioButton();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.gbExamen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExamenes)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -60,9 +61,9 @@ namespace ExamenBansi
             // 
             // gbExamen
             // 
+            this.gbExamen.Controls.Add(this.btnBuscar);
             this.gbExamen.Controls.Add(this.txtDescripcion);
             this.gbExamen.Controls.Add(this.txtNombre);
-            this.gbExamen.Controls.Add(this.btnGuardar);
             this.gbExamen.Controls.Add(this.txtID);
             this.gbExamen.Controls.Add(this.label3);
             this.gbExamen.Controls.Add(this.label2);
@@ -79,19 +80,19 @@ namespace ExamenBansi
             // 
             this.txtDescripcion.Location = new System.Drawing.Point(92, 105);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(216, 23);
+            this.txtDescripcion.Size = new System.Drawing.Size(409, 23);
             this.txtDescripcion.TabIndex = 6;
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(92, 67);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(216, 23);
+            this.txtNombre.Size = new System.Drawing.Size(409, 23);
             this.txtNombre.TabIndex = 5;
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(314, 105);
+            this.btnGuardar.Location = new System.Drawing.Point(6, 48);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 1;
@@ -139,11 +140,11 @@ namespace ExamenBansi
             this.dgvExamenes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvExamenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExamenes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvExamenes.Location = new System.Drawing.Point(6, 134);
+            this.dgvExamenes.Location = new System.Drawing.Point(6, 163);
             this.dgvExamenes.Name = "dgvExamenes";
             this.dgvExamenes.RowTemplate.Height = 25;
             this.dgvExamenes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvExamenes.Size = new System.Drawing.Size(495, 203);
+            this.dgvExamenes.Size = new System.Drawing.Size(495, 174);
             this.dgvExamenes.TabIndex = 0;
             this.dgvExamenes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvExamenes_CellClick);
             // 
@@ -151,6 +152,7 @@ namespace ExamenBansi
             // 
             this.groupBox2.Controls.Add(this.btnEditar);
             this.groupBox2.Controls.Add(this.btnEliminar);
+            this.groupBox2.Controls.Add(this.btnGuardar);
             this.groupBox2.Controls.Add(this.btnNuevo);
             this.groupBox2.Location = new System.Drawing.Point(525, 135);
             this.groupBox2.Name = "groupBox2";
@@ -161,7 +163,7 @@ namespace ExamenBansi
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(6, 48);
+            this.btnEditar.Location = new System.Drawing.Point(6, 77);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 3;
@@ -171,7 +173,7 @@ namespace ExamenBansi
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(6, 77);
+            this.btnEliminar.Location = new System.Drawing.Point(6, 106);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 2;
@@ -258,7 +260,7 @@ namespace ExamenBansi
             this.groupBox3.Controls.Add(this.rbProcedimiento);
             this.groupBox3.Location = new System.Drawing.Point(18, 73);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(465, 56);
+            this.groupBox3.Size = new System.Drawing.Size(501, 56);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Metodo de persistencia";
@@ -284,6 +286,16 @@ namespace ExamenBansi
             this.rbProcedimiento.TabStop = true;
             this.rbProcedimiento.Text = "Procedimiento almacenado";
             this.rbProcedimiento.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(426, 134);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 7;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // frmMain
             // 
@@ -334,6 +346,7 @@ namespace ExamenBansi
         private System.Windows.Forms.RadioButton rbWebApi;
         private System.Windows.Forms.RadioButton rbProcedimiento;
         private System.Windows.Forms.Button btnCargarDatos;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }
 
